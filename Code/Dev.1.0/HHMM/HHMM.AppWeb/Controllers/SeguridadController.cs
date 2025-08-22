@@ -113,28 +113,33 @@ namespace HHMM.AppWeb.Controllers
 
                 
                 if(!esAd)
-                {   
-                    
-                    if(idCompania.Equals("000000"))
+                {
+                    obeUsuarioMensaje = obrUsuarioContrasena.validarLogin(usuario, clave);
+                    if (obeUsuarioMensaje != null && obeUsuarioMensaje.UsuarioLogin != null)
                     {
-                        //SAHSAC
-                        obeUsuarioMensaje = obrUsuarioContrasena.validarLogin(usuario, clave);
-                        if (obeUsuarioMensaje != null && obeUsuarioMensaje.UsuarioLogin != null)
-                        {
-                            obeUsuarioMensaje.UsuarioLogin.IndicadorAD = false;
-                            obeUsuarioMensaje.UsuarioLogin.IdCompania = idCompania;
-                        }
+                        obeUsuarioMensaje.UsuarioLogin.IndicadorAD = false;
+                        obeUsuarioMensaje.UsuarioLogin.IdCompania = idCompania;
                     }
-                    else
-                    {
-                        //San Borja
-                        obeUsuarioMensaje = obrUsuarioContrasena.validarLoginCSB(usuario, clave);
-                        if (obeUsuarioMensaje != null && obeUsuarioMensaje.UsuarioLogin != null)
-                        {
-                            obeUsuarioMensaje.UsuarioLogin.IndicadorAD = false;
-                            obeUsuarioMensaje.UsuarioLogin.IdCompania = idCompania;
-                        }
-                    }
+                    //if (idCompania.Equals("000000"))
+                    //{
+                    //    //SAHSAC
+                    //    obeUsuarioMensaje = obrUsuarioContrasena.validarLogin(usuario, clave);
+                    //    if (obeUsuarioMensaje != null && obeUsuarioMensaje.UsuarioLogin != null)
+                    //    {
+                    //        obeUsuarioMensaje.UsuarioLogin.IndicadorAD = false;
+                    //        obeUsuarioMensaje.UsuarioLogin.IdCompania = idCompania;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //San Borja
+                    //    obeUsuarioMensaje = obrUsuarioContrasena.validarLoginCSB(usuario, clave);
+                    //    if (obeUsuarioMensaje != null && obeUsuarioMensaje.UsuarioLogin != null)
+                    //    {
+                    //        obeUsuarioMensaje.UsuarioLogin.IndicadorAD = false;
+                    //        obeUsuarioMensaje.UsuarioLogin.IdCompania = idCompania;
+                    //    }
+                    //}
                 }
 
                 if (obeUsuarioMensaje.Mensaje == "")

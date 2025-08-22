@@ -34,31 +34,31 @@ namespace HHMM.Librerias.ReglasNegocio
            }
            return (obeUsuarioMensaje);
        }
-        public beUsuarioMensaje validarLoginCSB(string codigoUsuario, string contrasena)
-        {
-            beUsuarioMensaje obeUsuarioMensaje = new beUsuarioMensaje();
-            using (SqlConnection con = new SqlConnection(ConexionCSB))
-            {
-                try
-                {
-                    con.Open();
-                    daUsuarioContrasena odaUsuarioContrasena = new daUsuarioContrasena();
-                    obeUsuarioMensaje = odaUsuarioContrasena.validarLogin(con, codigoUsuario, contrasena);
-                }
-                catch (SqlException ex)
-                {
-                    foreach (SqlError err in ex.Errors)
-                    {
-                        ucObjeto<SqlError>.grabarArchivoTexto(err, Archivo);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ucObjeto<Exception>.grabarArchivoTexto(ex, Archivo);
-                }
-            }
-            return (obeUsuarioMensaje);
-        }
+        //public beUsuarioMensaje validarLoginCSB(string codigoUsuario, string contrasena)
+        //{
+        //    beUsuarioMensaje obeUsuarioMensaje = new beUsuarioMensaje();
+        //    using (SqlConnection con = new SqlConnection(ConexionCSB))
+        //    {
+        //        try
+        //        {
+        //            con.Open();
+        //            daUsuarioContrasena odaUsuarioContrasena = new daUsuarioContrasena();
+        //            obeUsuarioMensaje = odaUsuarioContrasena.validarLogin(con, codigoUsuario, contrasena);
+        //        }
+        //        catch (SqlException ex)
+        //        {
+        //            foreach (SqlError err in ex.Errors)
+        //            {
+        //                ucObjeto<SqlError>.grabarArchivoTexto(err, Archivo);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ucObjeto<Exception>.grabarArchivoTexto(ex, Archivo);
+        //        }
+        //    }
+        //    return (obeUsuarioMensaje);
+        //}
         public string actualizarClavePorCorreo(string correoElectronico, string contrasenaNueva)
        {
            string usuario = "";

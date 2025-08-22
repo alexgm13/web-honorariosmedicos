@@ -1,0 +1,17 @@
+ProcesoId
+SucursalId
+Sucursal
+Periodo
+PeriodoFechaInicio
+PeriodoFechaFin
+TipoAdmision
+Cantidad
+TotalProvision
+EstadoProvision
+Descripcion
+PeriodoId
+TipoAdmisionId
+ListaPago
+EstadoPeriodo
+DescripcionProceso
+IndicadorDescuadre

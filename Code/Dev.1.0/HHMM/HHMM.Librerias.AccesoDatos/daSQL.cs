@@ -30,29 +30,33 @@ namespace HHMM.Librerias.AccesoDatos
 		}
 		public DataSet EjecutarComandoDst(SqlConnection con, string NombreSP, string parametroNombre = "", string parametroValor = "")
 		{
-			var result = new DataSet();
-			using (SqlCommand cmd = new SqlCommand(NombreSP, con))
-            {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.CommandTimeout = 0;
+            var result = new DataSet();
 
-                if (!String.IsNullOrEmpty(parametroValor))
+            using (var adapter = new SqlDataAdapter())
+            {
+                adapter.SelectCommand = new SqlCommand(NombreSP, con)
                 {
-                    cmd.Parameters.AddWithValue(parametroNombre, parametroValor);
+                    CommandType = CommandType.StoredProcedure,
+                    CommandTimeout = 0
+                };
+
+                if (!String.IsNullOrEmpty(parametroNombre) && !String.IsNullOrEmpty(parametroValor))
+                {
+                    var parameter = new SqlParameter(parametroNombre, parametroValor);
+                    adapter.SelectCommand.Parameters.Add(parameter);
                 }
-				using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
-				{
-					dataAdapter.Fill(result);
-				}
+
+                adapter.Fill(result);
             }
-			return result;
+            return result;
+
 
             //SqlCommand cmd = new SqlCommand(NombreSP, con);
             //cmd.CommandType = CommandType.StoredProcedure;
             //cmd.CommandTimeout = 0;
             //if (!String.IsNullOrEmpty(parametroValor))
             //{
-            //	cmd.Parameters.AddWithValue(parametroNombre, parametroValor);
+            //    cmd.Parameters.AddWithValue(parametroNombre, parametroValor);
             //}
             //var dataAdapter = new SqlDataAdapter(cmd);
             //dataAdapter.Fill(result);

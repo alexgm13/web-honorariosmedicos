@@ -31,19 +31,34 @@ namespace HHMM.Librerias.AccesoDatos
 		public DataSet EjecutarComandoDst(SqlConnection con, string NombreSP, string parametroNombre = "", string parametroValor = "")
 		{
 			var result = new DataSet();
+			using (SqlCommand cmd = new SqlCommand(NombreSP, con))
+            {
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandTimeout = 0;
 
-			SqlCommand cmd = new SqlCommand(NombreSP, con);
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandTimeout = 0;
-			if (!String.IsNullOrEmpty(parametroValor) && !String.IsNullOrEmpty(parametroValor))
-			{
-				cmd.Parameters.AddWithValue(parametroNombre, parametroValor);
-			}
-			var dataAdapter = new SqlDataAdapter(cmd);
-			dataAdapter.Fill(result);
-
+                if (!String.IsNullOrEmpty(parametroValor))
+                {
+                    cmd.Parameters.AddWithValue(parametroNombre, parametroValor);
+                }
+				using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+				{
+					dataAdapter.Fill(result);
+				}
+            }
 			return result;
-		}
+
+            //SqlCommand cmd = new SqlCommand(NombreSP, con);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.CommandTimeout = 0;
+            //if (!String.IsNullOrEmpty(parametroValor))
+            //{
+            //	cmd.Parameters.AddWithValue(parametroNombre, parametroValor);
+            //}
+            //var dataAdapter = new SqlDataAdapter(cmd);
+            //dataAdapter.Fill(result);
+
+            //return result;
+        }
 
 	}
 }

@@ -28,18 +28,8 @@ namespace HHMM.Librerias.AccesoDatos
 			}
 			return response;
 		}
-        private static readonly HashSet<string> ProcedimientosPermitidos = new HashSet<string>
-        {
-            "uspReporteCTACTEDescargarV2",
-            "uspReporteDetalladoListarV5",
-            "uspCuentaCorrienteMedicoContableExportar"
-        };
         public DataSet EjecutarComandoDst(SqlConnection con, string NombreSP, string parametroNombre = "", string parametroValor = "")
         {
-            if (!ProcedimientosPermitidos.Contains(NombreSP))
-            {
-                throw new InvalidOperationException($"El procedimiento {NombreSP} no está permitido.");
-            }
 
             var result = new DataSet();
 

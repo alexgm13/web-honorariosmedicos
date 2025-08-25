@@ -2194,8 +2194,7 @@ function descargarExcelGenericoDetalle(id, bloque) {
 
     var hojas = "Cta_CTE";
     var nombre = "ReporteDetalladoCTACTE.xlsx";
-    var sp = "uspReporteCTACTEDescargarV2";
-    var url = urlBase + "Control/listarReporteDetalladoGEN/?ss=" + ss + "&hojas=" + hojas + "&nombre=" + nombre + "&sp=" + sp;
+	var url = urlBase + "Control/listarReporteDetalladoCuentaCorriente/?ss=" + ss + "&hojas=" + hojas + "&nombre=" + nombre;
     postDownload(url, descargaExcelXLSx, strDatos);
     btnBuscar.innerHTML = "<span class='Icons fa-refresh cargando'></span>";
     btnBuscar.onclick = null;

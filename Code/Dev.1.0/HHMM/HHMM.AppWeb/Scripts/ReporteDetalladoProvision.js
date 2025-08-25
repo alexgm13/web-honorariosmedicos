@@ -422,8 +422,7 @@ function configurarControles() {
             strDatos = ddlTipoReporte + "|" + sucursalId + "|" + (hdfMedico == "0" ? "0" : hdfMedico) + "|" + (hdfEmpresa == "0" ? "0" : hdfEmpresa) + "|" + ddlPeriodo1 + "|" + ddlPeriodo2 + "|" + (ddlTipoAdm == "" ? "0" : ddlTipoAdm) + "|" + (ddlEspecialidad == "" ? "0" : ddlEspecialidad);
             var hojas = "Produccion|Horario|Monto_Fijo";
             var nombre = ddlTipoReporte == "1" ? "ReporteDetalladoProvision.xlsx" : "ReporteDetalladoPlanilla.xlsx";
-            var sp = "uspReporteDetalladoListarV5";
-            var url = urlBase + "Control/listarReporteDetalladoGEN/?ss=" + ss + "&hojas=" + hojas + "&nombre=" + nombre + "&sp=" + sp;
+            var url = urlBase + "Control/listarReporteDetalladoProvision/?ss=" + ss + "&hojas=" + hojas + "&nombre=" + nombre;
             postDownload(url, descargaExcelXLSx, strDatos);
             document.getElementById("btnBuscar2").innerHTML = "<span class='Icons fa-refresh cargando'></span>";
             this.onclick = null;
@@ -495,8 +494,7 @@ function descargaExcelXLSx(rpta) {
             strDatos = ddlTipoReporte + "|" + sucursalId + "|" + (hdfMedico == "0" ? "0" : hdfMedico) + "|" + (hdfEmpresa == "0" ? "0" : hdfEmpresa) + "|" + ddlPeriodo1 + "|" + ddlPeriodo2 + "|" + (ddlTipoAdm == "" ? "0" : ddlTipoAdm) + "|" + (ddlEspecialidad == "" ? "0" : ddlEspecialidad);
             var hojas = "Produccion|Horario|Monto_Fijo";
             var nombre = ddlTipoReporte == "1" ? "ReporteDetalladoProvision.xlsx" : "ReporteDetalladoPlanilla.xlsx";
-            var sp = "uspReporteDetalladoListarV5";
-            var url = urlBase + "Control/listarReporteDetalladoGEN/?ss=" + ss + "&hojas=" + hojas + "&nombre=" + nombre + "&sp=" + sp;
+            var url = urlBase + "Control/listarReporteDetalladoProvision/?ss=" + ss + "&hojas=" + hojas + "&nombre=" + nombre;
             postDownload(url, descargaExcelXLSx, strDatos);
             document.getElementById("btnBuscar2").innerHTML = "<span class='Icons fa-refresh cargando'></span>";
             this.onclick = null;

@@ -652,7 +652,7 @@ namespace HHMM.AppWeb.Views
         //}
 
         //Trae un cursor, y exporta directo a Excel XLSX
-        public FileResult listarReporteDetalladoGEN(string ss, string hojas, string nombre, string sp)
+        public FileResult listarReporteDetalladoCuentaCorriente(string ss, string hojas, string nombre)
         {
             FileResult rpta = File(new byte[] { }, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             if (Session["Usuario" + ss] != null)
@@ -665,7 +665,64 @@ namespace HHMM.AppWeb.Views
                 Request.InputStream.Read(buffer, 0, n);
                 string data = Encoding.UTF8.GetString(buffer);
 
-                dst = obrSQL.EjecutarComandoDst(sp, "@Data", data);
+                dst = obrSQL.EjecutarComandoDst("uspReporteCTACTEDescargarV2", "@Data", data);
+                int nDataset = dst.Tables.Count - 1;
+                if (nDataset > 0)
+                {
+                    DataTable miTabla;
+                    string rspta = Convert.ToString(dst.Tables[nDataset].Rows[0]["Column1"]);
+                    string[] cursores = rspta.Split('¬');
+                    //nDataset = 1;
+                    for (int i = 0; i < nDataset; i++)
+                    {
+                        data = cursores[i].ToString();
+                        miTabla = dst.Tables[i];
+                        ucCustomSerializer.CabeceraDeTabla(data, ref miTabla);
+                    }
+                    //*** Creamos archivo localmente
+                    //sArchivoXlsx = String.Format(@"D:\Archivos\{0}", archivoXlsx);
+                    //*** Creamos archivo en el Servidor
+                    string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
+                    sArchivoXlsx = carpeta + nombre;
+                    if (System.IO.File.Exists(sArchivoXlsx))
+                    {
+                        System.IO.File.Delete(sArchivoXlsx);
+                    }
+                    ExcelXMLx.ExportarTabla2XLSX(sArchivoXlsx, arrayHojas, dst);
+                    //*** ZIPEAMOS EL XLSX
+                    //string rutaEntrada = sArchivoXlsx;
+                    //string rutaSalida = rutaEntrada + ".zip";
+
+                    //using (FileStream fs = new FileStream(rutaSalida, FileMode.Create))
+                    //using (ZipArchive arch = new ZipArchive(fs, ZipArchiveMode.Create))
+                    //{
+                    //    arch.CreateEntryFromFile(rutaEntrada, nombre, CompressionLevel.Optimal);
+                    //    arch.Dispose();
+                    //}
+                    //if (System.IO.File.Exists(rutaEntrada))
+                    //{
+                    //    System.IO.File.Delete(rutaEntrada);
+                    //}
+                    //return File(System.IO.File.ReadAllBytes(rutaSalida), "application/zip");
+                    return File(System.IO.File.ReadAllBytes(sArchivoXlsx), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                }
+            }
+            return rpta;
+        }
+        public FileResult listarReporteDetalladoProvision(string ss, string hojas, string nombre)
+        {
+            FileResult rpta = File(new byte[] { }, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            if (Session["Usuario" + ss] != null)
+            {
+                string sArchivoXlsx = "";
+                string[] arrayHojas = hojas.Split('|');
+                brSQL obrSQL = new brSQL();
+                int n = (int)Request.InputStream.Length;
+                byte[] buffer = new byte[n];
+                Request.InputStream.Read(buffer, 0, n);
+                string data = Encoding.UTF8.GetString(buffer);
+
+                dst = obrSQL.EjecutarComandoDst("uspReporteDetalladoListarV5", "@Data", data);
                 int nDataset = dst.Tables.Count - 1;
                 if (nDataset > 0)
                 {

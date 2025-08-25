@@ -28,8 +28,19 @@ namespace HHMM.Librerias.AccesoDatos
 			}
 			return response;
 		}
-		public DataSet EjecutarComandoDst(SqlConnection con, string NombreSP, string parametroNombre = "", string parametroValor = "")
-		{
+        private static readonly HashSet<string> ProcedimientosPermitidos = new HashSet<string>
+        {
+            "uspReporteCTACTEDescargarV2",
+            "uspReporteDetalladoListarV5",
+            "uspCuentaCorrienteMedicoContableExportar"
+        };
+        public DataSet EjecutarComandoDst(SqlConnection con, string NombreSP, string parametroNombre = "", string parametroValor = "")
+        {
+            if (!ProcedimientosPermitidos.Contains(NombreSP))
+            {
+                throw new InvalidOperationException($"El procedimiento {NombreSP} no está permitido.");
+            }
+
             var result = new DataSet();
 
             using (var adapter = new SqlDataAdapter())
@@ -49,20 +60,6 @@ namespace HHMM.Librerias.AccesoDatos
                 adapter.Fill(result);
             }
             return result;
-
-
-            //SqlCommand cmd = new SqlCommand(NombreSP, con);
-            //cmd.CommandType = CommandType.StoredProcedure;
-            //cmd.CommandTimeout = 0;
-            //if (!String.IsNullOrEmpty(parametroValor))
-            //{
-            //    cmd.Parameters.AddWithValue(parametroNombre, parametroValor);
-            //}
-            //var dataAdapter = new SqlDataAdapter(cmd);
-            //dataAdapter.Fill(result);
-
-            //return result;
         }
-
 	}
 }

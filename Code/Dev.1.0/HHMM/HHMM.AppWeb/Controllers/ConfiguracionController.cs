@@ -1830,7 +1830,7 @@ namespace HHMM.AppWeb.Controllers
         public string grabarAdjunto(string ss, int contratoId, string opc, string su, string nombre, int tot, int con, string idCompania)
         {
             string rpta = "";
-            if (Session["Usuario" + ss] != null && IsFileNameValid(su))
+            if (Session["Usuario" + ss] != null && IsFileNameValid(su) && IsFileNameValid(nombre))
             {
                 HttpPostedFileBase file = Request.Files["file"];
                 //string Archivos = Server.MapPath("~/files/Adjuntos/");

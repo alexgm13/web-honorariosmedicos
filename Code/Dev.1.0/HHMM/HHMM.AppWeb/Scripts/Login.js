@@ -55,7 +55,7 @@ function configurarEventos() {
             //var comboEmpresa = document.getElementById("cboEmp").addEventListener;
             if (_idCompania != "") {
                 spnMensaje.innerHTML = "";
-                url = "Seguridad/validarLogin/?codigo=" + txtCodigo.value + "&usuario=" + txtUsuario.value + "&clave=" + CryptoJS.MD5(txtClave.value) + "&cnt=" + c + "&acc=" + acc + "&pw=" + txtClave.value + "&idCompania=" + _idCompania;
+                url = "Seguridad/validarLogin/?codigo=" + txtCodigo.value + "&usuario=" + txtUsuario.value + "&clave=" + CryptoJS.MD5(txtClave.value) + "&acc=" + acc + "&pw=" + txtClave.value + "&idCompania=" + _idCompania;
                 c++;
                 // txtClave.value = CryptoJS.MD5(txtClave.value);
                 enviarServidor(url, mostrarValidar);

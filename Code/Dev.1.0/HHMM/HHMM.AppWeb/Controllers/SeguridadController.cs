@@ -54,8 +54,8 @@ namespace HHMM.AppWeb.Controllers
             rpta1 = ConfigurationManager.AppSettings["ListaCompanias"].ToString();
             return rpta1;
         }
-        public string validarLogin(string codigo, string usuario, string clave, int cnt, int acc, string pw, string idCompania)
-        {
+        public string validarLogin(string codigo, string usuario, string clave, int acc, string pw, string idCompania)
+            {
             string rpta = "";
             string codigoGenerado = "";
 
@@ -68,13 +68,11 @@ namespace HHMM.AppWeb.Controllers
                 TempData["Codigo"] = codigoGenerado;
             }
             if (!codigo.Equals(codigoGenerado) && cantIntentos >= 4)
-            {
-                
+            { 
                 rpta = "-6";
             }
             else
             {
-                
                 Session["BDUtilizar"] = idCompania.Equals("000000") ? "conHTE" : "_conexionHHMMCSB";
                 string IsDomain = ConfigurationManager.AppSettings["IsDomainActiveDirectory"];
 

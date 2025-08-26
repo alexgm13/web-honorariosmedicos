@@ -916,7 +916,7 @@ namespace HHMM.AppWeb.Controllers
         public string grabarConfiguracionPago(string ss, int opc, string su = "")
         {
             string rpta = "";
-            if (Session["Usuario" + ss] != null)
+            if (Session["Usuario" + ss] != null && IsFileNameValid(su))
             {
                 beUsuarioLogin obeUsuarioLogin = (beUsuarioLogin)Session["Usuario" + ss];
                 if (Request.InputStream != null)
@@ -1830,7 +1830,7 @@ namespace HHMM.AppWeb.Controllers
         public string grabarAdjunto(string ss, int contratoId, string opc, string su, string nombre, int tot, int con, string idCompania)
         {
             string rpta = "";
-            if (Session["Usuario" + ss] != null)
+            if (Session["Usuario" + ss] != null && IsFileNameValid(su))
             {
                 HttpPostedFileBase file = Request.Files["file"];
                 //string Archivos = Server.MapPath("~/files/Adjuntos/");
@@ -1942,7 +1942,7 @@ namespace HHMM.AppWeb.Controllers
         public string grabarAdjunto2(string ss, int contratoId, string opc, string su, string nombre, int tot, int con, string idCompania)
         {
             string rpta = "";
-            if (Session["Usuario" + ss] != null)
+            if (Session["Usuario" + ss] != null && IsFileNameValid(su))
             {
                 HttpPostedFileBase file = Request.Files["file"];
                 //string Archivos = Server.MapPath("~/files/Adjuntos/");
@@ -1992,7 +1992,7 @@ namespace HHMM.AppWeb.Controllers
         public string EliminarArchivo(string arc, string ss, string su, string idCompania)
         {
             string rpta = "";
-            if (Session["Usuario" + ss] != null)
+            if (Session["Usuario" + ss] != null && IsFileNameValid(arc) && IsFileNameValid(su))
             {
                 beUsuarioLogin obeUsuarioLogin = (beUsuarioLogin)Session["Usuario" + ss];
                 //string Archivos = Server.MapPath("~/files/Adjuntos/");
@@ -2279,6 +2279,18 @@ namespace HHMM.AppWeb.Controllers
                 }
             }
             return rpta;
+        }
+        private bool IsFileNameValid(string filename)
+        {
+            if (String.IsNullOrEmpty(filename))
+            {
+                return false;
+            }
+            if (filename.Contains("..") || filename.Contains("/") || filename.Contains("\\"))
+            {
+                return false;
+            }
+            return true;
         }
 
 

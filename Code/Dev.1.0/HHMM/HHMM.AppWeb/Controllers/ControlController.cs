@@ -626,6 +626,12 @@ namespace HHMM.AppWeb.Views
             string msg = obrSQL.EjecutarComando("uspReporteDetalladoListarV6", "@Data", data);
             string nombre = data.Substring(0) == "1" ? "ReporteDetalladoProvision.xlsx" : "ReporteDetalladoPlanilla.xlsx";
             //
+
+            if (!IsFileNameValid(ss))
+            {
+                return null;
+            }
+
             if (msg != "")
             {
                 rpta = msg;
@@ -655,7 +661,7 @@ namespace HHMM.AppWeb.Views
         public FileResult listarReporteDetalladoCuentaCorriente(string ss, string hojas, string nombre)
         {
             FileResult rpta = File(new byte[] { }, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            if (Session["Usuario" + ss] != null && EsNombreValido(nombre))
+            if (Session["Usuario" + ss] != null && IsFileNameValid(nombre))
             {
                 string sArchivoXlsx = "";
                 string[] arrayHojas = hojas.Split('|');
@@ -713,7 +719,7 @@ namespace HHMM.AppWeb.Views
         public FileResult listarReporteDetalladoProvision(string ss, string hojas, string nombre)
         {
             FileResult rpta = File(new byte[] { }, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            if (Session["Usuario" + ss] != null)
+            if (Session["Usuario" + ss] != null && IsFileNameValid(nombre))
             {
                 string sArchivoXlsx = "";
                 string[] arrayHojas = hojas.Split('|');
@@ -741,7 +747,7 @@ namespace HHMM.AppWeb.Views
                     //sArchivoXlsx = String.Format(@"D:\Archivos\{0}", archivoXlsx);
                     //*** Creamos archivo en el Servidor
                     string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
-                    sArchivoXlsx = carpeta + nombre;
+                    sArchivoXlsx = Path.Combine(carpeta, nombre);
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
                         System.IO.File.Delete(sArchivoXlsx);
@@ -2370,6 +2376,8 @@ namespace HHMM.AppWeb.Views
             int ContadorArchivos = 0, Cont2 = 0;
             string carpeta = archivo + ContadorArchivos + "_" + nombreConsArc + "_" + ss + ".xls.zip";
 
+           
+
             if (System.IO.File.Exists(carpeta))
             {
                 System.IO.File.Delete(carpeta);
@@ -2851,7 +2859,7 @@ namespace HHMM.AppWeb.Views
         public FileResult generarExcelcuentacorrienteMedico(string ss, string hojas, string nombre, string sp)
         {
             FileResult rpta = File(new byte[] { }, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            if (Session["Usuario" + ss] != null)
+            if (Session["Usuario" + ss] != null && IsFileNameValid(nombre))
             {
                 beUsuarioLogin obeUsuarioLogin = (beUsuarioLogin)Session["Usuario" + ss];
                 int idUsuario = obeUsuarioLogin.UsuarioId;
@@ -2881,7 +2889,7 @@ namespace HHMM.AppWeb.Views
                     }
 
                     string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
-                    sArchivoXlsx = carpeta + nombre;
+                    sArchivoXlsx = Path.Combine(carpeta, nombre);
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
                         System.IO.File.Delete(sArchivoXlsx);
@@ -2934,7 +2942,7 @@ namespace HHMM.AppWeb.Views
             }
             return rpta;
         }
-        private bool EsNombreValido (string filename)
+        private bool IsFileNameValid(string filename)
         {
             if (String.IsNullOrEmpty(filename))
             {

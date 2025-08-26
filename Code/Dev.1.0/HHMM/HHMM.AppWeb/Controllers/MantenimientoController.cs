@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -1716,6 +1716,11 @@ namespace HHMM.AppWeb.Controllers
         {
             string tipo = "";
 
+            if (!IsFileNameValid(archivoCliente))
+            {
+                return null;
+            }
+
             string ruta = ConfigurationManager.AppSettings["rutaContrato-" + idCompania] + "\\" + su + "\\" + archivoCliente;
             if (op == 1)
             {
@@ -2119,6 +2124,19 @@ namespace HHMM.AppWeb.Controllers
             rpta = obrParametros.validar(nombre);
 
             return rpta;
+        }
+
+        private bool IsFileNameValid(string filename)
+        {
+            if (String.IsNullOrEmpty(filename))
+            {
+                return false;
+            }
+            if (filename.Contains("..") || filename.Contains("/") || filename.Contains("\\"))
+            {
+                return false;
+            }
+            return true;
         }
 
 

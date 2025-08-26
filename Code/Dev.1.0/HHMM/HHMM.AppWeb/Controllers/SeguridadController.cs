@@ -58,17 +58,23 @@ namespace HHMM.AppWeb.Controllers
         {
             string rpta = "";
             string codigoGenerado = "";
-            if (cnt >= 4)
+
+            int cantIntentos = Session["CantIntentos"] != null ? (int)Session["CantIntentos"] : 0;
+            
+
+            if (cantIntentos >= 4)
             {
                 codigoGenerado = TempData["Codigo"].ToString();
                 TempData["Codigo"] = codigoGenerado;
             }
-            if (!codigo.Equals(codigoGenerado) && cnt >= 4)
+            if (!codigo.Equals(codigoGenerado) && cantIntentos >= 4)
             {
+                
                 rpta = "-6";
             }
             else
             {
+                
                 Session["BDUtilizar"] = idCompania.Equals("000000") ? "conHTE" : "_conexionHHMMCSB";
                 string IsDomain = ConfigurationManager.AppSettings["IsDomainActiveDirectory"];
 
@@ -162,6 +168,7 @@ namespace HHMM.AppWeb.Controllers
                             {
                                 listaSucursal = ucCustomSerializer.Serializar(SucursalCompaniaListas.ListaUsuarioSucursal, '¦', '¬', false);
                             }
+                            Session["CantIntentos"] = 0;
                             rpta = String.Format("{0}¯{1}¯{2}¯{3}", obeUsuarioMensaje.UsuarioLogin.EstadoRegistro, c, listaCompania, listaSucursal);
                         }
                     }
@@ -207,6 +214,8 @@ namespace HHMM.AppWeb.Controllers
                             if (n == -1) Session["Caduco" + c] = obeUsuarioMensaje.UsuarioLogin;//Session["Usuario" + c] = obeUsuarioMensaje.UsuarioLogin;//
                         }
                     }
+                    cantIntentos++;
+                    Session["CantIntentos"] = cantIntentos;
                     rpta = rpta + "¯" + c + "¯" + listaCompania + "¯" + listaSucursal;
                 }
             }

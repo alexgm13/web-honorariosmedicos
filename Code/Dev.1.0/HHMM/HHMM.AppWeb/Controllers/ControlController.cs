@@ -689,7 +689,7 @@ namespace HHMM.AppWeb.Views
                     //sArchivoXlsx = String.Format(@"D:\Archivos\{0}", archivoXlsx);
                     //*** Creamos archivo en el Servidor
                     string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
-                    sArchivoXlsx = Path.Combine(carpeta,nombre);
+                    sArchivoXlsx = carpeta + nombre;
 
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
@@ -747,7 +747,7 @@ namespace HHMM.AppWeb.Views
                     //sArchivoXlsx = String.Format(@"D:\Archivos\{0}", archivoXlsx);
                     //*** Creamos archivo en el Servidor
                     string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
-                    sArchivoXlsx = Path.Combine(carpeta, nombre);
+                    sArchivoXlsx = carpeta + nombre;
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
                         System.IO.File.Delete(sArchivoXlsx);
@@ -1015,6 +1015,10 @@ namespace HHMM.AppWeb.Views
 
         public FileResult CreacionExcelConsolidado(string ss, int opc, string param)
         {
+            if (!IsFileNameValid(ss))
+            {
+                return null;
+            }
             if (opc == 4)
             {
                 int n = (int)Request.InputStream.Length;
@@ -1327,6 +1331,11 @@ namespace HHMM.AppWeb.Views
 
         private FileResult crearExcelConsolidados(string ss, string[,] matriz, string lista, string pestania, string identificador, string[,] matriz2 = null, string[,] matriz3 = null)
         {
+            if (!IsFileNameValid(ss))
+            {
+                return null;
+            }
+
             StringBuilder NuevaCadena = new StringBuilder();
             string nombreConsArc = "";
 
@@ -2226,7 +2235,7 @@ namespace HHMM.AppWeb.Views
         public string contratoPorVencerAmpliar(string ss, string su, string idCompania)
         {
             string rpta = "";
-            if (Session["Usuario" + ss] != null)
+            if (Session["Usuario" + ss] != null && IsFileNameValid(su))
             {
                 beUsuarioLogin obeUsuarioLogin = (beUsuarioLogin)Session["Usuario" + ss];
                 int n = (int)Request.InputStream.Length;
@@ -2889,7 +2898,7 @@ namespace HHMM.AppWeb.Views
                     }
 
                     string carpeta = System.Web.HttpContext.Current.Server.MapPath("~//Files//");
-                    sArchivoXlsx = Path.Combine(carpeta, nombre);
+                    sArchivoXlsx = carpeta + nombre;
                     if (System.IO.File.Exists(sArchivoXlsx))
                     {
                         System.IO.File.Delete(sArchivoXlsx);

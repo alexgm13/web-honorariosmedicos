@@ -1716,7 +1716,7 @@ namespace HHMM.AppWeb.Controllers
         {
             string tipo = "";
 
-            if (!IsFileNameValid(archivoCliente))
+            if (!IsFileNameValid(su) || !IsFileNameValid(archivoCliente))
             {
                 return null;
             }

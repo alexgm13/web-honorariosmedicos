@@ -831,7 +831,7 @@ function exportacion() {
 		contenido.push("<tr>");
 		var campo = matrizDetalle[i].split("¦");
 		for (j = 0; j < nCampos; j++) {
-			contenido.push("<td>" + campo[j].trim().replace("\n", " ") + "</td>");
+			contenido.push("<td>" + campo[j].trim().replace(/\n/g, " ") + "</td>");
 		}
 		contenido.push("</tr>");
 	}

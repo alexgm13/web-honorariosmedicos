@@ -98,7 +98,7 @@ var indiceExcelActualArchivos = 0;
 
 window.onload = function () {
 	var pos1 = window.location.href.indexOf("Control");
-	urlBase = window.location.href.substring(0, pos1);
+	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
 	ss = window.parent.document.getElementById("iss").value;
 	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
 	var sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
@@ -3514,4 +3514,11 @@ function descargaExcel(rpta) {
 		document.getElementById("ddlReporteConsolidado").disabled = false;
 		document.getElementById("ddlReporteConsolidado").style.pointerEvents = "auto";
 	}
+}
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

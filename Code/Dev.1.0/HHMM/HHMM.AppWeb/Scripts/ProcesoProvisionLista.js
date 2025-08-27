@@ -3414,7 +3414,7 @@ function mostrarMatriz(indicePagina, opcion) {
 								contenido += "¦";
 								contenido += (matriz[i][6] == "Asegurado" ? "2" : "1");
 								contenido += "¦";
-								contenido += window.location.href.split("&id=")[1];
+								contenido += sanitizeHTML(window.location.href.split("&id=")[1]);
 								contenido += "\");'></span>&nbsp;&nbsp";
 							}
 							else {

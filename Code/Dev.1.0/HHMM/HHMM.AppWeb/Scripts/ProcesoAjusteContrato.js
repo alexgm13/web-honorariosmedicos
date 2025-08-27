@@ -2803,6 +2803,8 @@ function exportacionExcelImportacion() {
 function sanitizeHTML(value) {
 	if (!value) return "";
 	return value
-		.replace(/[<>]/g, "")  
-		.replace(/\n/g, " ");    
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }
+

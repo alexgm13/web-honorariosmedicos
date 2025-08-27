@@ -30,7 +30,7 @@ window.onload = function () {
 	spnRutaArchivo.innerHTML = rutaOriginal;
 	ss = window.parent.document.getElementById("iss").value;
 	var pos1 = window.location.href.indexOf("Difundir");
-	urlBase = window.location.href.substring(0, pos1);
+	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
 	var url = urlBase + "Difundir/listarArchivoDigital/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "get", listarTodo);
 
@@ -2229,3 +2229,11 @@ function formatearNumero(valor) {
 //		}
 //	}
 //}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
+}

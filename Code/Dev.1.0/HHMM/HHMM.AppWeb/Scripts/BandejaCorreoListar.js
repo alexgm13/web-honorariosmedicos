@@ -53,7 +53,7 @@ window.onresize = function () {
 
 function buscarTipoAdmision() {
 	var pos1 = window.location.href.indexOf("Difundir");
-	urlBase = window.location.href.substring(0, pos1);
+	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
 	var ss = window.parent.document.getElementById("iss").value;
 	var url = urlBase + "Difundir/listarTipoAdmision/?ss=" + ss;
 	$.ajax(url, "get", listarInicial);
@@ -832,4 +832,12 @@ function mostraralerta(mensaje, opcion) {
 			alerta.className = "";
 		}, 3500);
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

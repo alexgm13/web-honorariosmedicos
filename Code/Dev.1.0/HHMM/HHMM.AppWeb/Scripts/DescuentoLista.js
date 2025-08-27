@@ -25,7 +25,7 @@ var Campoeliminar = "";
 
 window.onload = function () {
     var pos1 = window.location.href.indexOf("Mantenimiento");
-    urlBase = window.location.href.substring(0, pos1);
+    urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
     ss = window.parent.document.getElementById("iss").value;
     sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
     var url = urlBase + "Mantenimiento/listarDescuentosListas/?ss=" + ss;
@@ -1142,4 +1142,12 @@ function abrirPopupH(popup) {
 	} else {
 		popup.className = "PopUp";
 	}
+}
+
+function sanitizeHTML(value) {
+    if (!value) return "";
+    return value
+        .replace(/[<>"'`]/g, "")
+        .replace(/\n/g, " ")
+        .replace(/\r/g, " ");
 }

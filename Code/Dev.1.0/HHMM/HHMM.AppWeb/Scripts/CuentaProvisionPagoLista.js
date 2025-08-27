@@ -31,7 +31,7 @@ window.onload = function () {
     sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
     sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
     var pos1 = window.location.href.indexOf("Mantenimiento");
-    urlBase = window.location.href.substring(0, pos1);
+    urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
     ss = window.parent.document.getElementById("iss").value;
     var url = urlBase + "Mantenimiento/listasCuentaProvisionPago/?ss=" + ss;
     $.ajax(url, "get", listarCombos);
@@ -1628,3 +1628,11 @@ function fnBuscarValorEnArray(texto, lista, indiceComparar, indiceObtener) {
     }
     return valor;
 };
+
+function sanitizeHTML(value) {
+    if (!value) return "";
+    return value
+        .replace(/[<>"'`]/g, "")
+        .replace(/\n/g, " ")
+        .replace(/\r/g, " ");
+}

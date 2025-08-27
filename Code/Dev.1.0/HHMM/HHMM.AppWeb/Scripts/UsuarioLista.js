@@ -1459,7 +1459,7 @@ function validarEmail(Tex, Mensaje, Obligatorio) {
 			}
 		}
 		if (Texto.value.replace(/^\s+|\s+$/g, "").length > 0) {
-			if (Texto.value.match(/<[^>]+>/) != null) {
+			if (Texto.value.match(/<[^>]*>/i) != null) {
 				return 'El ' + Mensaje + ' no debe contener etiquetas html: <etiqueta>';
 			}
 			if (Texto.value.match(/[,;]+/) != null) {

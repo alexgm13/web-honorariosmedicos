@@ -94,7 +94,7 @@ function validarCadenaForm(Tex, Mensaje, Obligatorio) {
             }
         }
         if (Texto.value.replace(/^\s+|\s+$/g, "").length > 0) {
-            if (Texto.value.match(/([\<])([^\>]{1,})*([\>])/i) != null) {
+            if (Texto.value.match(/<[^>]*>/i) != null) {
                 return Mensaje + ' No debe contener etiquetas html: <etiqueta>';
             }
             if (Texto.value.match(/[,;]+/) != null) {
@@ -114,7 +114,7 @@ function validarEmailForm(Tex, Mensaje, Obligatorio) {
             }
         }
         if (Texto.value.replace(/^\s+|\s+$/g, "").length > 0) {
-            if (Texto.value.match(/([\<])([^\>]{1,})*([\>])/i) != null) {
+            if (Texto.value.match(/<[^>]*>/i) != null) {
                 return Mensaje + ' No debe contener etiquetas html: <etiqueta>';
             }
             if (Texto.value.match(/[,;]+/) != null) {

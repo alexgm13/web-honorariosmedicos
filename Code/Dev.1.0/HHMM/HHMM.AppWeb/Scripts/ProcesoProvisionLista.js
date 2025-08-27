@@ -1330,7 +1330,7 @@ function mostrarDetalleOA() {
 		ifrProvisionDetalleConceptosOA.innerHTML = "<iframe id='divIfrProcesoDetalleOA' style='margin:0;padding:0;width:100%;height:400px;border: 1px solid transparent;' src='" + urlBase + "Proceso/ProvisionDetalleConceptosOA/?ss=" + ss + "&data=" + detalles.replace("&", "♣") + "'></iframe>";
 	}
 	else {
-		document.getElementById('divIfrProcesoDetalleOA').src = urlBase + "Proceso/ProvisionDetalleConceptosOA/?ss=" + ss + "&data=" + detalles.replace("&", "♣");
+		document.getElementById('divIfrProcesoDetalleOA').src = urlBase + "Proceso/ProvisionDetalleConceptosOA/?ss=" + ss + "&data=" + detalles.replace(/&/g, "♣");
 	}
 	abrirPopup("PopupProvisionDetalleConceptosOA");
 }

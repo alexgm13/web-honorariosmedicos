@@ -196,7 +196,7 @@ function estableceSucursal() {
 function buscarListas() {
 	var pos1 = window.location.href.indexOf("Proceso");
 	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
-	ss = window.parent.document.getElementById("iss").value;
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	var url = urlBase + "Proceso/listarProcesoListas/?ss=" + ss;
 
 	var sucursal = window.parent.document.getElementById("isuc").value.split("|")[0];

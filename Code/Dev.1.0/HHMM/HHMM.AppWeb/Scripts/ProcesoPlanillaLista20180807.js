@@ -212,7 +212,7 @@ function estableceSucursal() {
 
 function buscarListas() {
     var pos1 = window.location.href.indexOf("Proceso");
-    urlBase = window.location.href.substring(0, pos1);
+    urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
     ss = window.parent.document.getElementById("iss").value;
     var url = urlBase + "Proceso/listarProcesoListas/?ss=" + ss;
 
@@ -3625,4 +3625,12 @@ function validarSoloNumero(event) {
             event.preventDefault();
         }
     }
+}
+
+function sanitizeHTML(value) {
+    if (!value) return "";
+    return value
+        .replace(/[<>"'`]/g, "")
+        .replace(/\n/g, " ")
+        .replace(/\r/g, " ");
 }

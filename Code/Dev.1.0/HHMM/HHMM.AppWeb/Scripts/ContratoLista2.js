@@ -388,7 +388,7 @@ window.onload = function () {
     rutaContrato = hdfrutcontrato.value.split("\\").join("/") + "/" + sucursalId;
     removeSeguridad("hdfrutcontrato");
     var pos1 = window.location.href.indexOf("Configuracion");
-    urlBase = window.location.href.substring(0, pos1);
+    urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
     ss = window.parent.document.getElementById("iss").value;
     var url = urlBase + "Configuracion/listasMedicoContrato/?ss=" + ss + "&su=" + sucursalId;
     $.ajax(url, "get", listarCombos);
@@ -13262,4 +13262,12 @@ function limpiarProductoFijoDescuento() {
     } else {
         mostraralerta("Adjuntar el contrato físico del médico en formato PDF para iniciar con las configuraciones");
     }
+}
+
+function sanitizeHTML(value) {
+    if (!value) return "";
+    return value
+        .replace(/[<>"'`]/g, "")
+        .replace(/\n/g, " ")
+        .replace(/\r/g, " ");
 }

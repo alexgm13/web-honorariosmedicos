@@ -1190,8 +1190,8 @@ function requestServer(url, type, success, text) {
 function verHistorial(t) {
     var hdfCd = document.getElementById("hdfCd");
     var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
-    var h = window.parent.document.getElementById("Ref").value;
-    var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
+    var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+    var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + sanitizeHTML(hdfCd.value) + "&ss=" + ss;
     mostrarPopupH(u);
 }
 function mostrarPopupH(url, tipo) {

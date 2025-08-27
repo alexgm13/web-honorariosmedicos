@@ -865,7 +865,7 @@ function requestServer(url, type, success, text) {
 }
 function verHistorial(t) {
 	var hdfCd = document.getElementById("hdfCd");
-	var ss = window.parent.document.getElementById("iss").value;
+	var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	var h = window.parent.document.getElementById("Ref").value;
 	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
 	mostrarPopupH(u);
@@ -888,4 +888,12 @@ function abrirPopupH(popup) {
 	} else {
 		popup.className = "PopUp";
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

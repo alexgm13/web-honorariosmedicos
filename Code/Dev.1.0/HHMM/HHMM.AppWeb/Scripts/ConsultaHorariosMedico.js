@@ -109,7 +109,7 @@ function configurarBotones() {
 		$.ajax("Control/consultarHorarioMedico/?ss=" + ss, "post", mostrarResultado, mensaje);
 	};
 	document.getElementById("btnRegresar").onclick = function () {
-		var hdfSeg = document.getElementById("hdfSeg").value;
+		var hdfSeg = sanitizeHTML(document.getElementById("hdfSeg").value);
 		window.location.href = urlBase + "Mantenimiento/HorarioMedicoLista/?ss=" + ss + "&id=" + hdfSeg;
 	};
 

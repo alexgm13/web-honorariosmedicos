@@ -102,7 +102,7 @@ function validarCambioClave() {
 			n++;
 		}
 		else {
-			var parametros = hdfParametros.value.split("|");
+			var parametros = sanitizeHTML(hdfParametros.value).split("|");
 			var longitudActual = Number(txtClaveNueva.value.length);
 			var longitudMinima = Number(parametros[0]);
 			var longitudMaxima = Number(parametros[1]);
@@ -283,4 +283,12 @@ function mostraralerta(mensaje, opcion) {
 			alerta.className = "";
 		}, 3500);
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

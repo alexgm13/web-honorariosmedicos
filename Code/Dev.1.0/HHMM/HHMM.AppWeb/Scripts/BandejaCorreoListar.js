@@ -548,7 +548,7 @@ function configurarControles() {
 	spnDoctor.onclick = function () {
 		var ifrMedico = document.getElementById("ifrMedico");
 		if (ifrMedico.innerHTML == "") {
-			var ss = window.parent.document.getElementById("iss").value;
+			var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 			ifrMedico.innerHTML = "<iframe style='margin:0;padding:0;width:950px;height:500px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/MedicoLista/?ss=" + ss + "'></iframe>";
 		}
 		abrirPopup("PopupMedico");

@@ -34,10 +34,10 @@ var matrizSeguridad = [];
 window.onload = function () {
 	matrizSeguridad = document.getElementById("hdfSeguridad").value.split("¯");
 	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
+	sucursal = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[1];
 	var pos1 = window.location.href.indexOf("Configuracion");
 	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
-	ss = window.parent.document.getElementById("iss").value;
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	var url = urlBase + "Configuracion/listasAsignacionDescuento/?ss=" + ss;
 	$.ajax(url, "get", listarCombos);
 }

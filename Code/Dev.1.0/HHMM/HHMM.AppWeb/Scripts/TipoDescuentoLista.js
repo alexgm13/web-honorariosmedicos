@@ -688,7 +688,7 @@ function requestServer(url, type, success, text) {
 function verHistorial(t) {
 	var hdfCd = document.getElementById("hdfCd");
     var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
-	var h = window.parent.document.getElementById("Ref").value;
+    var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
 	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
 	mostrarPopupH(u);
 }

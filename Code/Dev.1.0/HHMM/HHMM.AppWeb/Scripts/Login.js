@@ -139,7 +139,7 @@ function mostrarRestablecer(rpta) {
 
 function enviarServidor(url, metodo) {
     var xhr = new XMLHttpRequest();
-    urlBase = location.protocol + "//" + window.location.host + document.getElementById("url").value;
+    urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(document.getElementById("url").value);
     xhr.open("get", urlBase + url, true);
     xhr.send();
     xhr.onreadystatechange = function () {

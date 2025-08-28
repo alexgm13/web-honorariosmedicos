@@ -870,7 +870,7 @@ function configurarControles() {
     spnVCostoCuenta.onclick = spnVProvCuenta.onclick = spnvCliCuenta.onclick = spnNVCostoCuenta.onclick = spnNVProvCuenta.onclick = spnNVCliCuenta.onclick = function () {
         var ifrCuenta = document.getElementById("ifrCuenta");
         //if (ifrCuenta.innerHTML == "") {
-        ifrCuenta.innerHTML = "<iframe style='margin:0;padding:0;width:700px;height:500px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/PlanCuentaContableLista/?ss=" + ss + "&pos=" + this.getAttribute("data-orden") + "'></iframe>";
+        ifrCuenta.innerHTML = "<iframe style='margin:0;padding:0;width:700px;height:500px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/PlanCuentaContableLista/?ss=" + ss + "&pos=" + sanitizeHTML(this.getAttribute("data-orden")) + "'></iframe>";
         //}
         abrirPopup("PopupCuenta");
     }

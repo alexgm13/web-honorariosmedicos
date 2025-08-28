@@ -88,7 +88,7 @@ function configurarControles() {
 	for (var x = 0; x < spnDoctor.length; x++) {
 		spnDoctor[x].onclick = function () {
 			var ifrMedico = document.getElementById("ifrMedico");
-			ifrMedico.innerHTML = "<iframe style='margin:0;padding:0;width:950px;height:500px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/MedicoLista/?ss=" + ss + "&tipo=" + this.getAttribute("data-id") + "'></iframe>";
+			ifrMedico.innerHTML = "<iframe style='margin:0;padding:0;width:950px;height:500px;border: 1px solid transparent;' src='" + urlBase + "Mantenimiento/MedicoLista/?ss=" + ss + "&tipo=" + sanitizeHTML(this.getAttribute("data-id")) + "'></iframe>";
 			abrirPopup("PopupMedico");
 		}
 	}

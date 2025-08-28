@@ -280,7 +280,7 @@ function mostrarValidar(rpta) {
                 }
                 if (exito) {
                     localStorage.setItem('SANNA_HHMM_Compania', document.getElementById('cboEmp').value);
-                    idSucursal = idSucursal || document.getElementById("cboCede").value;
+                    idSucursal = idSucursal || sanitizeHTML(document.getElementById("cboCede").value);
                     url = urlBase + "Principal/Inicio/?ss=" + data[1] + "&sucursalId=" + idSucursal + "&idCompania=" + _idCompania;
                     enviarFormulario(url, "", data[1], idSucursal);
                 }

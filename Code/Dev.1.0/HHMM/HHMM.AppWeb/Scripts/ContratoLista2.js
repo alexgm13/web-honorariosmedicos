@@ -6012,7 +6012,7 @@ function configurarControles() {
         var valor = 0;
         if (this.id == "IcoPFConfiguracion" || this.id == "IcoPFBonificacion" || this.id == "IcoProduccionEscalonada" || this.id == "IcoCCompartido") {
             if (this.id == "IcoPFConfiguracion") {
-                var ddlPFConfiguracionServicio = document.getElementById("ddlPFConfiguracionServicio").value
+                var ddlPFConfiguracionServicio = sanitizeHTML(document.getElementById("ddlPFConfiguracionServicio").value);
                 valor = (ddlPFConfiguracionServicio == "" ? 0 : ddlPFConfiguracionServicio);
             }
             else if (this.id == "IcoPFBonificacion") {
@@ -6033,7 +6033,7 @@ function configurarControles() {
         }
         else {
             var frPrestacion = document.getElementById("frPrestacion");
-            frPrestacion.src = urlBase + "Mantenimiento/PrestacionesLista/?ss=" + ss + "&tc=" + (this.id.indexOf("Vacuna") > -1 ? 'A' : 'P') + "&val=" + valor + "&ver=" + document.getElementById("hdfSeguridad").value;
+            frPrestacion.src = urlBase + "Mantenimiento/PrestacionesLista/?ss=" + ss + "&tc=" + encodeURIComponent((this.id.indexOf("Vacuna") > -1 ? 'A' : 'P')) + "&val=" + encodeURIComponent(valor) + "&ver=" + encodeURIComponent(document.getElementById("hdfSeguridad").value);
         }
         abrirPopup("PopupPrestaciones");
 

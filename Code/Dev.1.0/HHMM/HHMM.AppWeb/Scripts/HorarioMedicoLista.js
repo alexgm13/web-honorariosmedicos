@@ -2841,7 +2841,7 @@ function consultarHorarioMedico(medico) {
 	var cboPeriodo = document.getElementById("cboPeriodo");
 	var anio = cboPeriodo.options[cboPeriodo.selectedIndex].text;
 	var mes = document.getElementById("cboMes").value * 1;
-	window.location.href = urlBase + "Control/ConsultaHorariosMedico/?ss=" + ss + "&medicoId=" + document.getElementById("hdfMed").value + "&fecha=" + (mes + "¦" + anio) + "&no=" + document.getElementById("hdfNomMed").value + "&su=" + hdfSucMed + "&idSeg=" + hdfSeg;
+	window.location.href = urlBase + "Control/ConsultaHorariosMedico/?ss=" + encodeURIComponent(ss) + "&medicoId=" + encodeURIComponent(document.getElementById("hdfMed").value) + "&fecha=" + encodeURIComponent((mes + "¦" + anio)) + "&no=" + encodeURIComponent(document.getElementById("hdfNomMed").value) + "&su=" + encodeURIComponent(hdfSucMed) + "&idSeg=" + encodeURIComponent(hdfSeg);
 }
 function buscarHorario(id) {
 	var nRegHorario = listaDetalle.length, exito = false,

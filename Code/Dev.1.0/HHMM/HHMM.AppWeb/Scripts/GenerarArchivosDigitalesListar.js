@@ -23,12 +23,12 @@ var rutaOriginal = "";
 var pdfProcesados = 0, medicosProcesados = [];
 var MedicosSeleccionadosCheck = [];
 window.onload = function () {
-	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
-	sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
+	sucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
+	sucursal = sanitizeHTMLsanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[1];
 	var spnRutaArchivo = document.getElementById("spnRutaArchivo");
 	rutaOriginal = spnRutaArchivo.innerHTML + sucursalId + "\\";
 	spnRutaArchivo.innerHTML = rutaOriginal;
-	ss = window.parent.document.getElementById("iss").value;
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	var pos1 = window.location.href.indexOf("Difundir");
 	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
 	var url = urlBase + "Difundir/listarArchivoDigital/?ss=" + ss + "&su=" + sucursalId;

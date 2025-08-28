@@ -26,8 +26,8 @@ var Campoeliminar = "";
 window.onload = function () {
     var pos1 = window.location.href.indexOf("Mantenimiento");
     urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
-    ss = window.parent.document.getElementById("iss").value;
-    sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
+    ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+    sucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
     var url = urlBase + "Mantenimiento/listarDescuentosListas/?ss=" + ss;
     $.ajax(url, "get", listarCombos);
     configuracionInicial();
@@ -1119,9 +1119,9 @@ function busquedaClasificador(rpta) {
 }
 function verHistorial(t) {
 	var hdfCd = document.getElementById("hdfCd");
-	var ss = window.parent.document.getElementById("iss").value;
-	var h = window.parent.document.getElementById("Ref").value;
-	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
+    var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+    var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+    var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + sanitizeHTML(hdfCd.value) + "&ss=" + ss;
 	mostrarPopupH(u);
 }
 function mostrarPopupH(url, tipo) {

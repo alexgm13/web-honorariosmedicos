@@ -17,12 +17,12 @@ var esBloque = 0;
 var excelExportar;
 var urlBase = "";
 window.onload = function () {
-	var sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	var data = document.getElementById("hdfDatos").value.split("¬");
+	var sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	var data = sanitizeHTML(document.getElementById("hdfDatos").value).split("¬");
 	var strDatos = data[0];
 	document.getElementById("spnEspecialidad").innerHTML = data[1];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
-	var ss = window.parent.parent.document.getElementById("iss").value;
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
+	var ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 	var url = urlBase + "Mantenimiento/listarDetalleErrores/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "post", listarTodo, strDatos);
 	configuracionInicial();
@@ -695,4 +695,12 @@ function exportarExcel(opcion) {
 	if (contenido.length > 0) excelExportar += contenido.join("") + "</table></html>";
 	else excelExportar = "";
 	return excelExportar;
+}
+
+function 	(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

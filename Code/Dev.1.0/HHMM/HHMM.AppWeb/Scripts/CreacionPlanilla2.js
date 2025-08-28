@@ -3480,7 +3480,7 @@ function mostrarRpta(r) {
 			abrirPopup('PopupMensaje');
 		}
 		if (hdfIframe == "1") {
-			var seg = document.getElementById("hdfIdSeg").value;
+			var seg = sanitizeHTML(document.getElementById("hdfIdSeg").value);
 			window.location.href = urlBase + "Proceso/ProcesoPlanillaLista/?ss=" + ss + "&id=" + seg;
 			if (window.sessionStorage) {
 				window.sessionStorage.setItem("msgPlanilla", "Planilla Actualizada");

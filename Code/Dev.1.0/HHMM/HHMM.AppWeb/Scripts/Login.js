@@ -51,7 +51,7 @@ function configurarEventos() {
             var txtCodigo = document.getElementById("txtCodigo");
             var spnMensaje = document.getElementById('spnMensaje');
             (exito ? (c = 0) : "");
-            _idCompania = document.getElementById("cboEmp").value;
+            _idCompania = sanitizeHTML(document.getElementById("cboEmp").value);
             //var comboEmpresa = document.getElementById("cboEmp").addEventListener;
             if (_idCompania != "") {
                 spnMensaje.innerHTML = "";
@@ -567,4 +567,12 @@ function llenarComboV2(lista, nombreCombo, sepRegistros, sepCampos) {
     if (cbo != null) {
         cbo.innerHTML = contenido;
     }
+}
+
+function sanitizeHTML(value) {
+    if (!value) return "";
+    return value
+        .replace(/[<>"'`]/g, "")
+        .replace(/\n/g, " ")
+        .replace(/\r/g, " ");
 }

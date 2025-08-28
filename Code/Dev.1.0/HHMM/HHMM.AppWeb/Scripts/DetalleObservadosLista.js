@@ -12,12 +12,12 @@ var mensajeValidacion = [];
 var urlBase = "";
 var idPasar = "";
 window.onload = function () {
-	var sucursalId = window.parent.parent.document.getElementById("isuc").value.split("|")[0];
-	var data = document.getElementById("hdfDatos").value.split("¬");
+	var sucursalId = sanitizeHTML(window.parent.parent.document.getElementById("isuc").value).split("|")[0];
+	var data = sanitizeHTML(document.getElementById("hdfDatos").value).split("¬");
 	var strDatos = data[0];
 	document.getElementById("spnEspecialidad").innerHTML = data[1];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
-	var ss = window.parent.parent.document.getElementById("iss").value;
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
+	var ss = sanitizeHTML(window.parent.parent.document.getElementById("iss").value);
 	var url = urlBase + "Mantenimiento/listarDetalleObservados/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "post", listarTodo, strDatos);
 	configuracionInicial();
@@ -529,4 +529,12 @@ function requestServer(url, type, success, text) {
 	else {
 		if (text != null && text != "") xhr.send(text);
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

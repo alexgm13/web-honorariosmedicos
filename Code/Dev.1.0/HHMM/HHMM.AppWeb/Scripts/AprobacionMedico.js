@@ -40,7 +40,7 @@ function requestServer(url, type, success, text) {
 
 window.onload = function () {
 	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(document.getElementById("url").value);
-	ss = window.parent.document.getElementById("iss").value;
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	var hdfSucursal = document.getElementById("hdfSucursal").value;
 	if (hdfSucursal != "") {
 		var elemento1 = document.getElementsByClassName("fa-search")[0];

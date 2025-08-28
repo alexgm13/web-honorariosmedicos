@@ -64,12 +64,12 @@ window.onload = function () {
 		//	removeSeguridad("btnDoctorGrabar");
 		//}
 	}
-	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
+	sucursalId = sanitizeHTML(window.parent.document.getElementById("isuc").value).split("|")[0];
 	sucursalCombo = sucursalId;
 	sucursal = window.parent.document.getElementById("isuc").value.split("|")[1];
 	var pos1 = window.location.href.indexOf("Mantenimiento");
-	urlBase = window.location.href.substring(0, pos1);
-	ss = window.parent.document.getElementById("iss").value;
+	urlBase = sanitizeHTML(window.location.href.substring(0, pos1));
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	var url = urlBase + "Mantenimiento/listasHorarioMedico/?ss=" + ss + "&su=" + sucursalId;
 	$.ajax(url, "get", listarCombos);
 }
@@ -2713,9 +2713,9 @@ function esHora(Cadena) {
 }
 function verHistorial(t) {
 	var hdfCd = document.getElementById("hdfCd");
-	var ss = window.parent.document.getElementById("iss").value;
-	var h = window.parent.document.getElementById("Ref").value;
-	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
+	var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+	var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + sanitizeHTML(hdfCd.value) + "&ss=" + ss;
 	mostrarPopupH(u);
 }
 function mostrarPopupH(url, tipo) {
@@ -2928,4 +2928,12 @@ function buscarMedico(id) {
 		}
 	}
 	return pos;
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

@@ -130,7 +130,7 @@ function crearMatriz() {
 
 function mostrarMatriz(indicePagina) {
     var contenido = "";
-    var hdfPos = document.getElementById("hdfPos").value;
+    var hdfPos = sanitizeHTML(document.getElementById("hdfPos").value);
     var n = matriz.length;
     if (n > 0) {
         var nCampos = matriz[0].length;
@@ -392,4 +392,12 @@ function limpiar() {
     idPasar = "";
     paginar(0);
     indiceActualBloque = 0;
+}
+
+function sanitizeHTML(value) {
+    if (!value) return "";
+    return value
+        .replace(/[<>"'`]/g, "")
+        .replace(/\n/g, " ")
+        .replace(/\r/g, " ");
 }

@@ -105,8 +105,8 @@ window.onload = function () {
 	MesIni = window.parent.document.getElementById("hmes").value;
 	AnioIni = window.parent.document.getElementById("hanio").value;	
 	MesIni = (MesIni * 1 < 10 ? "0" + MesIni : MesIni);
-	ss = window.parent.document.getElementById("iss").value;
-	urlBase = location.protocol + "//" + window.location.host + window.parent.parent.parent.document.getElementById("Ref").value;
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value);
 	configuracionInicial();
 	var ddlIndicadorOAVisible = document.getElementById("ddlIndicadorOAVisible").value;
 	switch (ddlIndicadorOAVisible) {
@@ -123,7 +123,7 @@ window.onload = function () {
 	var url = urlBase + "Proceso/obtenerListas/?ss=" + ss + "&su=" + sucursalId + "&indoa=" + valorindoaM;
 	$.ajax(url, "get", listarTodo);
 	var spnFormatoExc = document.getElementById("spnFormatoExc");
-	spnFormatoExc.href = window.parent.parent.parent.document.getElementById("Ref").value + "Files/Formato%20de%20Planillas.xlsx";
+	spnFormatoExc.href = sanitizeHTML(window.parent.parent.parent.document.getElementById("Ref").value) + "Files/Formato%20de%20Planillas.xlsx";
 	//var contenido = "";
 	//var nCabeceras = cabecerasMedico.length;
 	//contenido += "<tr class='FilaDatos'><td style='text-align:center' colspan='";
@@ -138,13 +138,13 @@ window.onload = function () {
 }
 function configurar() {
 	var doc = document,
-		spnFormatoExc = doc.getElementById("spnFormatoExc"),
+	spnFormatoExc = doc.getElementById("spnFormatoExc"),
 	spnTituloIframe = doc.getElementById("spnTituloIframe"),
 	btnPlanillaExcel = doc.getElementById("btnPlanillaExcel"),
 	btnGrabar = doc.getElementById("btnGrabar"),
 	btnCancelar = doc.getElementById("btnCancelar"),
-	hdfIdDet = doc.getElementById("hdfIdDet").value,
-	hdfIdPlanilla = doc.getElementById("hdfIdPlanilla").value;
+	hdfIdDet = sanitizeHTML(doc.getElementById("hdfIdDet").value),
+	hdfIdPlanilla = sanitizeHTML(doc.getElementById("hdfIdPlanilla").value);
 
 	spnFormatoExc.style.display = "none";
 	spnTituloIframe.innerHTML = "Editar planilla - Proceso:" + hdfIdPlanilla + " " + hdfIdDet;
@@ -4314,4 +4314,12 @@ function formatearNumero(valor) {
 		valorFrm = "0.00";
 	}
 	return valorFrm
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }

@@ -63,8 +63,8 @@ var esConciliacion = false;
 
 window.onload = function () {
 	sucursalId = window.parent.document.getElementById("isuc").value.split("|")[0];
-	urlBase = location.protocol + "//" + window.location.host + window.parent.document.getElementById("Ref").value;
-	ss = window.parent.document.getElementById("iss").value;
+	urlBase = location.protocol + "//" + window.location.host + sanitizeHTML(window.parent.document.getElementById("Ref").value);
+	ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
 	ConfiguracionInicial();
 };
 
@@ -2262,9 +2262,9 @@ function obtenerIds(opcion) {
 
 function verHistorial(t) {
 	var hdfCd = document.getElementById("hdfCd");
-	var ss = window.parent.document.getElementById("iss").value;
-	var h = window.parent.document.getElementById("Ref").value;
-	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + hdfCd.value + "&ss=" + ss;
+	var ss = sanitizeHTML(window.parent.document.getElementById("iss").value);
+	var h = sanitizeHTML(window.parent.document.getElementById("Ref").value);
+	var u = h + "Principal/HistorialCambio?t=" + t + "&i=" + sanitizeHTML(hdfCd.value) + "&ss=" + ss;
 	mostrarPopupH(u);
 }
 
@@ -2286,4 +2286,12 @@ function abrirPopupH(popup) {
 	} else {
 		popup.className = "PopUp";
 	}
+}
+
+function sanitizeHTML(value) {
+	if (!value) return "";
+	return value
+		.replace(/[<>"'`]/g, "")
+		.replace(/\n/g, " ")
+		.replace(/\r/g, " ");
 }
